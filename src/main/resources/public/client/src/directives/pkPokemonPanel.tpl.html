@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title col-md-11">{{pokemon.name || pokemon.species.speciesName}}</h2>
+        <span class="text-right glyphicon glyphicon-edit"
+              ng-class="{'glyphicon-edit' : !editMode, 'glyphicon-check' : editMode}"
+              style="cursor:pointer;"
+              ng-click="toggleEdit()"></span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-5">
+                <img class="img-responsive" ng-src="../assets/images/pokemon/front/{{pokemon.speciesId}}.png">
+            </div>
+            <div class="col-md-7">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Species</label>
+                        <div ng-switch="editMode" class="col-md-8">
+                            <p ng-switch-when="false" class="form-control-static">Species</p>
+                            <input ng-switch-when="true" placeholder="Species" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    More information!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
