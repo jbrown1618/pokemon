@@ -1,0 +1,22 @@
+{
+  "name": "pokemon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbrown1618/pokemon.git"
+  },
+  "author": "jbrown1618",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jbrown1618/pokemon/issues"
+  },
+  "homepage": "https://github.com/jbrown1618/pokemon#readme",
+  "scripts": {
+    "postinstall": "bower install"
+  }
+}
