@@ -12,4 +12,20 @@ public class Pokemon {
     private Stats evStats;
 
     private Stats ivStats;
+
+    public Species getSpecies() {
+        return species;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public Stats getCurrentStats() {
+        return currentStats;
+    }
+
+    public void setCurrentStats(Stats currentStats) {
+        this.currentStats = currentStats;
+    }
 }
