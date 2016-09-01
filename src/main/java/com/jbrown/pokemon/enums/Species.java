@@ -20,4 +20,12 @@ public enum Species {
         this.type1 = type1;
         this.type2 = type2;
     }
+
+    public Type getType1() {
+        return type1;
+    }
+
+    public Type getType2() {
+        return type2;
+    }
 }
