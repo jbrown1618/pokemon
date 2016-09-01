@@ -6,6 +6,7 @@ import com.jbrown.pokemon.enums.Type;
 
 public class DamagingMoveExecutor extends MoveExecutor {
     private int basePower;
+    private TypeEvaluator typeEvaluator = new TypeEvaluator();
 
     public DamagingMoveExecutor(Type type, double accuracy, int basePower) {
         this.type = type;
@@ -28,15 +29,10 @@ public class DamagingMoveExecutor extends MoveExecutor {
 
     private double calculateDamageModifier(Pokemon attacker, Pokemon target) {
         double sameTypeAttackBonus = (type.equals(attacker.getSpecies().getType1()) || type.equals(attacker.getSpecies().getType2())) ? 1.5 : 1.0;
-        double firstTypeMultiplier = calculateTypeMultiplier(type, target.getSpecies().getType1());
-        double secondTypeMultiplier = calculateTypeMultiplier(type, target.getSpecies().getType2());
+        double firstTypeMultiplier = typeEvaluator.getMultiplier(type, target.getSpecies().getType1());
+        double secondTypeMultiplier = typeEvaluator.getMultiplier(type, target.getSpecies().getType2());
         double criticalMultiplier = 1.0;
         double randomMultiplier = 0.85 + 0.25 * Math.random();
         return sameTypeAttackBonus * firstTypeMultiplier * secondTypeMultiplier * criticalMultiplier * randomMultiplier;
-    }
-
-    private static double calculateTypeMultiplier(Type attackingType, Type defendingType) {
-        // TODO - implement type multipliers in Type
-        return 1.0;
     }
 }
