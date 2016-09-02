@@ -15,13 +15,13 @@ public class TypeEvaluator {
     private static final double EFFECTIVE = 1.0;
     private static final double SUPER_EFFECTIVE = 2.0;
 
-    private Map<Type, TypeProperties> effectivenessMap = new HashMap<>();
-
-    public TypeEvaluator() {
-        initEffectivenessMap();
-    }
+    private Map<Type, TypeProperties> effectivenessMap = initEffectivenessMap();
 
     public double getMultiplier(Type attackingType, Type defendingType) {
+        if (defendingType == null) {
+            return EFFECTIVE;
+        }
+
         TypeProperties typeProperties = effectivenessMap.get(defendingType);
         if (typeProperties.hasImmunity(attackingType)) {
             return INEFFECTIVE;
@@ -34,12 +34,13 @@ public class TypeEvaluator {
         }
     }
 
-    private void initEffectivenessMap() {
-        effectivenessMap.put(NORMAL, new TypeProperties()
+    private Map<Type, TypeProperties> initEffectivenessMap() {
+        Map<Type, TypeProperties> map = new HashMap<>();
+        map.put(NORMAL, new TypeProperties()
                 .addImmunity(GHOST)
                 .addWeakness(FIGHTING));
 
-        effectivenessMap.put(FIRE, new TypeProperties()
+        map.put(FIRE, new TypeProperties()
                 .addWeakness(WATER)
                 .addWeakness(GROUND)
                 .addWeakness(ROCK)
@@ -49,7 +50,7 @@ public class TypeEvaluator {
                 .addResistance(BUG)
                 .addResistance(STEEL));
 
-        effectivenessMap.put(WATER, new TypeProperties()
+        map.put(WATER, new TypeProperties()
                 .addWeakness(ELECTRIC)
                 .addWeakness(GRASS)
                 .addResistance(FIRE)
@@ -57,13 +58,13 @@ public class TypeEvaluator {
                 .addResistance(ICE)
                 .addResistance(STEEL));
 
-        effectivenessMap.put(ELECTRIC, new TypeProperties()
+        map.put(ELECTRIC, new TypeProperties()
                 .addWeakness(GROUND)
                 .addResistance(ELECTRIC)
                 .addResistance(FLYING)
                 .addResistance(STEEL));
 
-        effectivenessMap.put(GRASS, new TypeProperties()
+        map.put(GRASS, new TypeProperties()
                 .addWeakness(FIRE)
                 .addWeakness(ICE)
                 .addWeakness(POISON)
@@ -74,21 +75,21 @@ public class TypeEvaluator {
                 .addResistance(GRASS)
                 .addResistance(GROUND));
 
-        effectivenessMap.put(ICE, new TypeProperties()
+        map.put(ICE, new TypeProperties()
                 .addWeakness(FIRE)
                 .addWeakness(FIGHTING)
                 .addWeakness(ROCK)
                 .addWeakness(STEEL)
                 .addResistance(ICE));
 
-        effectivenessMap.put(FIGHTING, new TypeProperties()
+        map.put(FIGHTING, new TypeProperties()
                 .addWeakness(FLYING)
                 .addWeakness(PSYCHIC)
                 .addResistance(BUG)
                 .addResistance(ROCK)
                 .addResistance(DARK));
 
-        effectivenessMap.put(POISON, new TypeProperties()
+        map.put(POISON, new TypeProperties()
                 .addWeakness(GROUND)
                 .addWeakness(PSYCHIC)
                 .addResistance(GRASS)
@@ -96,7 +97,7 @@ public class TypeEvaluator {
                 .addResistance(POISON)
                 .addResistance(BUG));
 
-        effectivenessMap.put(GROUND, new TypeProperties()
+        map.put(GROUND, new TypeProperties()
                 .addImmunity(ELECTRIC)
                 .addWeakness(WATER)
                 .addWeakness(GRASS)
@@ -104,7 +105,7 @@ public class TypeEvaluator {
                 .addResistance(POISON)
                 .addResistance(ROCK));
 
-        effectivenessMap.put(FLYING, new TypeProperties()
+        map.put(FLYING, new TypeProperties()
                 .addImmunity(GROUND)
                 .addWeakness(ELECTRIC)
                 .addWeakness(ICE)
@@ -113,14 +114,14 @@ public class TypeEvaluator {
                 .addResistance(FIGHTING)
                 .addResistance(BUG));
 
-        effectivenessMap.put(PSYCHIC, new TypeProperties()
+        map.put(PSYCHIC, new TypeProperties()
                 .addWeakness(BUG)
                 .addWeakness(GHOST)
                 .addWeakness(DARK)
                 .addResistance(FIGHTING)
                 .addResistance(PSYCHIC));
 
-        effectivenessMap.put(BUG, new TypeProperties()
+        map.put(BUG, new TypeProperties()
                 .addWeakness(FIRE)
                 .addWeakness(FLYING)
                 .addWeakness(ROCK)
@@ -128,7 +129,7 @@ public class TypeEvaluator {
                 .addResistance(FIGHTING)
                 .addResistance(GROUND));
 
-        effectivenessMap.put(ROCK, new TypeProperties()
+        map.put(ROCK, new TypeProperties()
                 .addWeakness(WATER)
                 .addWeakness(GRASS)
                 .addWeakness(FIGHTING)
@@ -138,7 +139,7 @@ public class TypeEvaluator {
                 .addResistance(POISON)
                 .addResistance(FLYING));
 
-        effectivenessMap.put(GHOST, new TypeProperties()
+        map.put(GHOST, new TypeProperties()
                 .addImmunity(NORMAL)
                 .addImmunity(FIGHTING)
                 .addWeakness(GHOST)
@@ -146,7 +147,7 @@ public class TypeEvaluator {
                 .addResistance(POISON)
                 .addResistance(BUG));
 
-        effectivenessMap.put(DRAGON, new TypeProperties()
+        map.put(DRAGON, new TypeProperties()
                 .addWeakness(ICE)
                 .addWeakness(DRAGON)
                 .addResistance(FIRE)
@@ -154,14 +155,14 @@ public class TypeEvaluator {
                 .addResistance(ELECTRIC)
                 .addResistance(GRASS));
 
-        effectivenessMap.put(DARK, new TypeProperties()
+        map.put(DARK, new TypeProperties()
                 .addImmunity(PSYCHIC)
                 .addWeakness(FIGHTING)
                 .addWeakness(BUG)
                 .addResistance(GHOST)
                 .addResistance(DARK));
 
-        effectivenessMap.put(STEEL, new TypeProperties()
+        map.put(STEEL, new TypeProperties()
                 .addImmunity(POISON)
                 .addWeakness(FIRE)
                 .addWeakness(FIGHTING)
@@ -175,6 +176,8 @@ public class TypeEvaluator {
                 .addResistance(ROCK)
                 .addResistance(DRAGON)
                 .addResistance(STEEL));
+
+        return map;
     }
 
     private class TypeProperties {

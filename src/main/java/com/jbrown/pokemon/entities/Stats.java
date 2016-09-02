@@ -7,6 +7,15 @@ public class Stats {
     int specialAttack;
     int specialDefense;
 
+    public Stats(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed) {
+        this.hp = hp;
+        this.attack = attack;
+        this.defense = defense;
+        this.specialAttack = specialAttack;
+        this.specialDefense = specialDefense;
+        this.speed = speed;
+    }
+
     public int getSpeed() {
         return speed;
     }
