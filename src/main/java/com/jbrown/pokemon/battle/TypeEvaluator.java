@@ -2,10 +2,11 @@ package com.jbrown.pokemon.battle;
 
 import com.jbrown.pokemon.enums.Type;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import static com.jbrown.pokemon.enums.Type.*;
 
 public class TypeEvaluator {
     private static final double INEFFECTIVE = 0.0;
@@ -33,146 +34,146 @@ public class TypeEvaluator {
     }
 
     private void initEffectivenessMap() {
-        effectivenessMap.put(Type.NORMAL, new TypeProperties()
-                .addImmunity(Type.GHOST)
-                .addWeakness(Type.FIGHTING));
+        effectivenessMap.put(NORMAL, new TypeProperties()
+                .addImmunity(GHOST)
+                .addWeakness(FIGHTING));
 
-        effectivenessMap.put(Type.FIRE, new TypeProperties()
-                .addWeakness(Type.WATER)
-                .addWeakness(Type.GROUND)
-                .addWeakness(Type.ROCK)
-                .addResistance(Type.FIRE)
-                .addResistance(Type.GRASS)
-                .addResistance(Type.ICE)
-                .addResistance(Type.BUG)
-                .addResistance(Type.STEEL));
+        effectivenessMap.put(FIRE, new TypeProperties()
+                .addWeakness(WATER)
+                .addWeakness(GROUND)
+                .addWeakness(ROCK)
+                .addResistance(FIRE)
+                .addResistance(GRASS)
+                .addResistance(ICE)
+                .addResistance(BUG)
+                .addResistance(STEEL));
 
-        effectivenessMap.put(Type.WATER, new TypeProperties()
-                .addWeakness(Type.ELECTRIC)
-                .addWeakness(Type.GRASS)
-                .addResistance(Type.FIRE)
-                .addResistance(Type.WATER)
-                .addResistance(Type.ICE)
-                .addResistance(Type.STEEL));
+        effectivenessMap.put(WATER, new TypeProperties()
+                .addWeakness(ELECTRIC)
+                .addWeakness(GRASS)
+                .addResistance(FIRE)
+                .addResistance(WATER)
+                .addResistance(ICE)
+                .addResistance(STEEL));
 
-        effectivenessMap.put(Type.ELECTRIC, new TypeProperties()
-                .addWeakness(Type.GROUND)
-                .addResistance(Type.ELECTRIC)
-                .addResistance(Type.FLYING)
-                .addResistance(Type.STEEL));
+        effectivenessMap.put(ELECTRIC, new TypeProperties()
+                .addWeakness(GROUND)
+                .addResistance(ELECTRIC)
+                .addResistance(FLYING)
+                .addResistance(STEEL));
 
-        effectivenessMap.put(Type.GRASS, new TypeProperties()
-                .addWeakness(Type.FIRE)
-                .addWeakness(Type.ICE)
-                .addWeakness(Type.POISON)
-                .addWeakness(Type.FLYING)
-                .addWeakness(Type.BUG)
-                .addResistance(Type.WATER)
-                .addResistance(Type.ELECTRIC)
-                .addResistance(Type.GRASS)
-                .addResistance(Type.GROUND));
+        effectivenessMap.put(GRASS, new TypeProperties()
+                .addWeakness(FIRE)
+                .addWeakness(ICE)
+                .addWeakness(POISON)
+                .addWeakness(FLYING)
+                .addWeakness(BUG)
+                .addResistance(WATER)
+                .addResistance(ELECTRIC)
+                .addResistance(GRASS)
+                .addResistance(GROUND));
 
-        effectivenessMap.put(Type.ICE, new TypeProperties()
-                .addWeakness(Type.FIRE)
-                .addWeakness(Type.FIGHTING)
-                .addWeakness(Type.ROCK)
-                .addWeakness(Type.STEEL)
-                .addResistance(Type.ICE));
+        effectivenessMap.put(ICE, new TypeProperties()
+                .addWeakness(FIRE)
+                .addWeakness(FIGHTING)
+                .addWeakness(ROCK)
+                .addWeakness(STEEL)
+                .addResistance(ICE));
 
-        effectivenessMap.put(Type.FIGHTING, new TypeProperties()
-                .addWeakness(Type.FLYING)
-                .addWeakness(Type.PSYCHIC)
-                .addResistance(Type.BUG)
-                .addResistance(Type.ROCK)
-                .addResistance(Type.DARK));
+        effectivenessMap.put(FIGHTING, new TypeProperties()
+                .addWeakness(FLYING)
+                .addWeakness(PSYCHIC)
+                .addResistance(BUG)
+                .addResistance(ROCK)
+                .addResistance(DARK));
 
-        effectivenessMap.put(Type.POISON, new TypeProperties()
-                .addWeakness(Type.GROUND)
-                .addWeakness(Type.PSYCHIC)
-                .addResistance(Type.GRASS)
-                .addResistance(Type.FIGHTING)
-                .addResistance(Type.POISON)
-                .addResistance(Type.BUG));
+        effectivenessMap.put(POISON, new TypeProperties()
+                .addWeakness(GROUND)
+                .addWeakness(PSYCHIC)
+                .addResistance(GRASS)
+                .addResistance(FIGHTING)
+                .addResistance(POISON)
+                .addResistance(BUG));
 
-        effectivenessMap.put(Type.GROUND, new TypeProperties()
-                .addImmunity(Type.ELECTRIC)
-                .addWeakness(Type.WATER)
-                .addWeakness(Type.GRASS)
-                .addWeakness(Type.ICE)
-                .addResistance(Type.POISON)
-                .addResistance(Type.ROCK));
+        effectivenessMap.put(GROUND, new TypeProperties()
+                .addImmunity(ELECTRIC)
+                .addWeakness(WATER)
+                .addWeakness(GRASS)
+                .addWeakness(ICE)
+                .addResistance(POISON)
+                .addResistance(ROCK));
 
-        effectivenessMap.put(Type.FLYING, new TypeProperties()
-                .addImmunity(Type.GROUND)
-                .addWeakness(Type.ELECTRIC)
-                .addWeakness(Type.ICE)
-                .addWeakness(Type.ROCK)
-                .addResistance(Type.GRASS)
-                .addResistance(Type.FIGHTING)
-                .addResistance(Type.BUG));
+        effectivenessMap.put(FLYING, new TypeProperties()
+                .addImmunity(GROUND)
+                .addWeakness(ELECTRIC)
+                .addWeakness(ICE)
+                .addWeakness(ROCK)
+                .addResistance(GRASS)
+                .addResistance(FIGHTING)
+                .addResistance(BUG));
 
-        effectivenessMap.put(Type.PSYCHIC, new TypeProperties()
-                .addWeakness(Type.BUG)
-                .addWeakness(Type.GHOST)
-                .addWeakness(Type.DARK)
-                .addResistance(Type.FIGHTING)
-                .addResistance(Type.PSYCHIC));
+        effectivenessMap.put(PSYCHIC, new TypeProperties()
+                .addWeakness(BUG)
+                .addWeakness(GHOST)
+                .addWeakness(DARK)
+                .addResistance(FIGHTING)
+                .addResistance(PSYCHIC));
 
-        effectivenessMap.put(Type.BUG, new TypeProperties()
-                .addWeakness(Type.FIRE)
-                .addWeakness(Type.FLYING)
-                .addWeakness(Type.ROCK)
-                .addResistance(Type.GRASS)
-                .addResistance(Type.FIGHTING)
-                .addResistance(Type.GROUND));
+        effectivenessMap.put(BUG, new TypeProperties()
+                .addWeakness(FIRE)
+                .addWeakness(FLYING)
+                .addWeakness(ROCK)
+                .addResistance(GRASS)
+                .addResistance(FIGHTING)
+                .addResistance(GROUND));
 
-        effectivenessMap.put(Type.ROCK, new TypeProperties()
-                .addWeakness(Type.WATER)
-                .addWeakness(Type.GRASS)
-                .addWeakness(Type.FIGHTING)
-                .addWeakness(Type.STEEL)
-                .addResistance(Type.NORMAL)
-                .addResistance(Type.FIRE)
-                .addResistance(Type.POISON)
-                .addResistance(Type.FLYING));
+        effectivenessMap.put(ROCK, new TypeProperties()
+                .addWeakness(WATER)
+                .addWeakness(GRASS)
+                .addWeakness(FIGHTING)
+                .addWeakness(STEEL)
+                .addResistance(NORMAL)
+                .addResistance(FIRE)
+                .addResistance(POISON)
+                .addResistance(FLYING));
 
-        effectivenessMap.put(Type.GHOST, new TypeProperties()
-                .addImmunity(Type.NORMAL)
-                .addImmunity(Type.FIGHTING)
-                .addWeakness(Type.GHOST)
-                .addWeakness(Type.DARK)
-                .addResistance(Type.POISON)
-                .addResistance(Type.BUG));
+        effectivenessMap.put(GHOST, new TypeProperties()
+                .addImmunity(NORMAL)
+                .addImmunity(FIGHTING)
+                .addWeakness(GHOST)
+                .addWeakness(DARK)
+                .addResistance(POISON)
+                .addResistance(BUG));
 
-        effectivenessMap.put(Type.DRAGON, new TypeProperties()
-                .addWeakness(Type.ICE)
-                .addWeakness(Type.DRAGON)
-                .addResistance(Type.FIRE)
-                .addResistance(Type.WATER)
-                .addResistance(Type.ELECTRIC)
-                .addResistance(Type.GRASS));
+        effectivenessMap.put(DRAGON, new TypeProperties()
+                .addWeakness(ICE)
+                .addWeakness(DRAGON)
+                .addResistance(FIRE)
+                .addResistance(WATER)
+                .addResistance(ELECTRIC)
+                .addResistance(GRASS));
 
-        effectivenessMap.put(Type.DARK, new TypeProperties()
-                .addImmunity(Type.PSYCHIC)
-                .addWeakness(Type.FIGHTING)
-                .addWeakness(Type.BUG)
-                .addResistance(Type.GHOST)
-                .addResistance(Type.DARK));
+        effectivenessMap.put(DARK, new TypeProperties()
+                .addImmunity(PSYCHIC)
+                .addWeakness(FIGHTING)
+                .addWeakness(BUG)
+                .addResistance(GHOST)
+                .addResistance(DARK));
 
-        effectivenessMap.put(Type.STEEL, new TypeProperties()
-                .addImmunity(Type.POISON)
-                .addWeakness(Type.FIRE)
-                .addWeakness(Type.FIGHTING)
-                .addWeakness(Type.GROUND)
-                .addResistance(Type.NORMAL)
-                .addResistance(Type.GRASS)
-                .addResistance(Type.ICE)
-                .addResistance(Type.FLYING)
-                .addResistance(Type.PSYCHIC)
-                .addResistance(Type.BUG)
-                .addResistance(Type.ROCK)
-                .addResistance(Type.DRAGON)
-                .addResistance(Type.STEEL));
+        effectivenessMap.put(STEEL, new TypeProperties()
+                .addImmunity(POISON)
+                .addWeakness(FIRE)
+                .addWeakness(FIGHTING)
+                .addWeakness(GROUND)
+                .addResistance(NORMAL)
+                .addResistance(GRASS)
+                .addResistance(ICE)
+                .addResistance(FLYING)
+                .addResistance(PSYCHIC)
+                .addResistance(BUG)
+                .addResistance(ROCK)
+                .addResistance(DRAGON)
+                .addResistance(STEEL));
     }
 
     private class TypeProperties {
