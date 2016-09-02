@@ -2,6 +2,7 @@ package com.jbrown.pokemon.battle;
 
 import com.jbrown.pokemon.enums.Type;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class TypeEvaluator {
     private static final double EFFECTIVE = 1.0;
     private static final double SUPER_EFFECTIVE = 2.0;
 
-    private Map<Type, TypeProperties> effectivenessMap;
+    private Map<Type, TypeProperties> effectivenessMap = new HashMap<>();
 
     public TypeEvaluator() {
         initEffectivenessMap();
