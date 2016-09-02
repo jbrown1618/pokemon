@@ -16,5 +16,6 @@ public enum Type {
     PSYCHIC,
     ICE,
     DRAGON,
+    DARK,
     STEEL;
 }
