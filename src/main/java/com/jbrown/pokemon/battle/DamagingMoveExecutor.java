@@ -1,7 +1,7 @@
 package com.jbrown.pokemon.battle;
 
 import com.jbrown.pokemon.entities.Pokemon;
-import com.jbrown.pokemon.entities.Stats;
+import com.jbrown.pokemon.enums.Stats;
 import com.jbrown.pokemon.enums.Type;
 
 public class DamagingMoveExecutor extends MoveExecutor {
@@ -20,7 +20,8 @@ public class DamagingMoveExecutor extends MoveExecutor {
 
     public void execute (Pokemon attacker, Pokemon target) {
         Stats currentStats = target.getCurrentStats();
-        currentStats.setHp(currentStats.getHp() - calculateDamage(attacker, target));
+        target.setCurrentStats(
+            currentStats.withHp(currentStats.getHp() - calculateDamage(attacker, target)));
     }
 
     private int calculateDamage(Pokemon attacker, Pokemon target) {

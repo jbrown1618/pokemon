@@ -1,0 +1,17 @@
+Work-in-progress: An attempt at a Pokemon battle emulator.
+
+---
+
+## Development
+
+To compile / build from source, you'll want to download and
+install [Bazel](https://bazel.io/versions/master/docs/install.html).
+
+Then, try something like the following (from the `src` directory):
+
+```
+$ bazel build //main/java/...
+$ bazel test //test/java/
+```
+
+TODO(jbrown1618): How to run/test the UI.

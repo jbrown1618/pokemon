@@ -1,6 +1,7 @@
 package com.jbrown.pokemon.entities;
 
-import com.jbrown.pokemon.enums.Species;
+import com.jbrown.pokemon.entities.silver.Species;
+import com.jbrown.pokemon.enums.Stats;
 
 public class Pokemon {
     private Species species;

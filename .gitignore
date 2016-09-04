@@ -83,3 +83,12 @@ buildNumber.properties
 .classpath
 .settings
 .project
+.factorypath
+
+### Bazel output directoryes
+bazel-*
+/.apt_generated/
+
+### Python crud
+__pycache__
+*.pyc
