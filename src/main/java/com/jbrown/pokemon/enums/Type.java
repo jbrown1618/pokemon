@@ -12,8 +12,10 @@ public enum Type {
     FIRE,
     WATER,
     GRASS,
-    ELECTR,
+    ELECTRIC,
     PSYCHIC,
     ICE,
-    DRAGON
+    DRAGON,
+    DARK,
+    STEEL;
 }
