@@ -77,3 +77,9 @@ buildNumber.properties
 ### NPM and Bower
 */bower_components
 */node_modules
+
+### Eclipse settings
+/bin/
+.classpath
+.settings
+.project
