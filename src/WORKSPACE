@@ -1,0 +1,61 @@
+### Global Bazel configuration.
+#
+# To add a new Maven library:
+#
+#  1. Find the Maven URL, e.g.:
+#     http://mvnrepository.com/artifact/package.name/jar-name
+#
+#  2. Find the version you'd like to use, e.g. 1.2.3
+#
+#  3. Add a new maven_jar entry, e.g.:
+#     maven_jar(
+#         name = "package_name_jar_name",
+#         artifact = "package.name:jar-name:1.2.3"
+#     )
+#
+#  4. Add a shortcut for the maven jar, e.g.:
+#     bind(name = "jar-name", actual = "@package_name_jar_name//jar")
+#
+#  5. Add a BUILD dependency where you use the library, e.g.
+#     java_library(
+#         name = "some_of_my_code",
+#         ...
+#         deps = ["//external:jar-name"],
+#         ...
+#     )
+
+maven_jar(
+    name = "com_google_guava_guava",
+    artifact = "com.google.guava:guava:19.0",
+)
+bind(name = "guava", actual = "@com_google_guava_guava//jar")
+
+maven_jar(
+    name = "org_slf4j_slf4j_api",
+    artifact = "org.slf4j:slf4j-api:1.7.21",
+)
+bind(name = "slf4j", actual = "@org_slf4j_slf4j_api//jar")
+
+maven_jar(
+    name = "com_google_code_gson_gson",
+    artifact = "com.google.code.gson:gson:2.3.1",
+)
+bind(name = "gson", actual = "@com_google_code_gson_gson//jar")
+
+maven_jar(
+    name = "com_sparkjava_spark_core",
+    artifact = "com.sparkjava:spark-core:2.5",
+)
+bind(name = "spark", actual = "@com_sparkjava_spark_core//jar")
+
+maven_jar(
+    name = "com_google_auto_value_auto_value",
+    artifact = "com.google.auto.value:auto-value:1.2",
+)
+bind(name = "autovalue", actual = "@com_google_auto_value_auto_value//jar")
+
+maven_jar(
+    name = "junit_junit",
+    artifact = "junit:junit:4.12",
+)
+bind(name = "junit", actual = "@junit_junit//jar")

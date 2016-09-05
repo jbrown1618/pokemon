@@ -1,0 +1,7 @@
+directories:
+  main
+  test
+
+targets:
+  //main/...
+  //test/...

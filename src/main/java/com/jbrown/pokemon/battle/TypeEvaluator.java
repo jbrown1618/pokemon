@@ -2,10 +2,7 @@ package com.jbrown.pokemon.battle;
 
 import com.jbrown.pokemon.enums.Type;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.jbrown.pokemon.enums.Type.*;
 
@@ -32,6 +29,18 @@ public class TypeEvaluator {
         } else {
             return EFFECTIVE;
         }
+    }
+
+    /**
+     * Overload to support optional second types.
+     *
+     * <p>If {@code defendingType} is present, calculates a multiplier as normal;
+     * otherwise, returns {@code 1.0} so as not to affect the damage.
+     */
+    public double getMultiplier(Type attackingType, Optional<Type> defendingType) {
+        return defendingType.isPresent()
+                ? getMultiplier(attackingType, defendingType.get())
+                : EFFECTIVE;
     }
 
     private Map<Type, TypeProperties> initEffectivenessMap() {
