@@ -1,0 +1,2 @@
+# Better test output.
+test --test_output=errors

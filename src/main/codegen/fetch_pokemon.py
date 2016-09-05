@@ -5,185 +5,196 @@ pokemon versions. By fetching this data, we can then generate Java resources
 for each species of Pokemon and its properties.
 """
 
-from pprint import pformat
 from collections import defaultdict, namedtuple
-import math
 import csv
-# TODO: Rewrite using better async networking. import asyncio/aiohttp
-import grequests
+import functools
 
-DEBUG = False
+DATA_DIR = 'main/data/pokedex/pokedex/data/csv'
+ENGLISH_ID = '9'
+STAT_NAMES = {
+  '1': 'hp',
+  '2': 'attack',
+  '3': 'defense',
+  '4': 'special_attack',
+  '5': 'special_defense',
+  '6': 'speed',
+  '7': 'accuracy',
+  '8': 'evasion',
+}
 
-def debug(*argv):
-  if DEBUG:
-    print(*argv)
-
-
-BASE_URL = 'https://pokeapi.co/api/v2'
-
+# A lightweight data type for a Pokemon's stats.
 Stats = namedtuple(
     'Stats',
     ['hp', 'attack', 'defense', 'special_attack', 'special_defense', 'speed'])
 
-def pokeapi_parallel_list(url, results_per_request, max_results):
-  """
-  Takes a 'list' request URL (e.g. http://foo/entity), and shards it
-  into multiple URLs to parallelize listing things (e.g.
-  [http://foo/entity?limit=20, http://foo/entity?limit=20&offset=20, ...]).
 
-  Returns a list of JSON responses.
-  """
-  reqs = []
-  for shard in range(math.ceil(max_results / results_per_request)):
-    offset = results_per_request * shard
-    limit = min(results_per_request, max_results - offset)
-    reqs.append(grequests.get(url + '?limit=%d&offset=%d' % (limit, offset)))
+def memoize(func):
+  '''
+  Turns any function into a memoized function.
 
-  responses = grequests.map(reqs)
-  failed = list(filter(lambda resp: resp.status_code != 200, responses))
-  if failed:
-    raise Exception('Some requests failed: ' + str(failed))
-  return map(lambda resp: resp.json(), responses)
+  Use as an annotation, e.g.:
 
-def unicode_encoder(data):
-  for line in data:
-    yield line.encode('utf-8')
+      @memoize
+      def myfunc(some, args):
+          # expensive computation here
+          return result
+  '''
+  cache = {}
+  @functools.wraps(func)
+  def memoizer(*args, **kwargs):
+    key = str(args) + str(kwargs)
+    if key not in cache:
+        cache[key] = func(*args, **kwargs)
+    return cache[key]
+  return memoizer
 
-def list_pokemon(version='Silver', num=811):
-  """TODO(arensonjr): An attempt to read from CSV rather than from API"""
-  DATA_DIR = 'main/data/pokedex/pokedex/data/csv'
+def read_csv(filename):
+  '''
+  Reads the contents of the CSV file at '%(DATA_DIR)s/%(filename)s.csv'.
 
-  # TODO: Turn these all into lazy / cached loaders.
-
-  # TODO: Localize?
-  english_id = None
-  with open('%s/languages.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
+  Yields one row at a time, as a dictionary keyed by column name.
+  '''
+  with open('%s/%s.csv' % (DATA_DIR, filename), 'r', encoding='utf-8') as f:
     reader = csv.DictReader(f)
     for row in reader:
-      if row['iso639'] == 'en' and row['iso3166'] == 'us':
-        english_id = row['id']
-        break
+      yield row
 
-  version_id = None
-  with open('%s/version_names.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-      if row['local_language_id'] == english_id and row['name'] == version.title():
-        version_id = row['version_id']
-  version_group_id = None
-  with open('%s/version_groups.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-      if version.lower() in row['identifier'].split('-'):
-        version_group_id = row['id']
+@memoize
+def version_id(version):
+  '''
+  Returns the version ID (example version: 'silver') for a specified game
+  version.
+  '''
+  for row in read_csv('versions'):
+    if row['identifier'] == version.lower():
+      return row['id']
 
-  stat_names = {
-      1: 'hp',
-      2: 'attack',
-      3: 'defense',
-      4: 'special_attack',
-      5: 'special_defense',
-      6: 'speed',
-      7: 'accuracy',
-      8: 'evasion'
-  }
-  pokemon_stats_by_id = defaultdict(dict)
-  pokemon_evs_by_id = defaultdict(dict)
-  with open('%s/pokemon_stats.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-      stat = stat_names[int(row['stat_id'])]
-      pokemon_stats_by_id[row['pokemon_id']][stat] = int(row['base_stat'])
-      pokemon_evs_by_id[row['pokemon_id']][stat] = int(row['effort'])
-  pokemon_stats_by_id = { pokemon_id: Stats(**stats) for (pokemon_id, stats) in pokemon_stats_by_id.items() }
-  pokemon_evs_by_id = { pokemon_id: Stats(**stats) for (pokemon_id, stats) in pokemon_evs_by_id.items() }
+@memoize
+def generation(version):
+  for row in read_csv('version_groups'):
+    if row['id'] == version_group_id(version):
+      return row['generation_id']
 
+
+@memoize
+def version_group_id(version):
+  '''
+  Returns the version group ID (example version group: 'gold-silver') for a
+  specified game version.
+  '''
+  for row in read_csv('version_groups'):
+    if version.lower() in row['identifier'].split('-'):
+      return row['id']
+
+@memoize
+def game_indices(version):
+  '''
+  Returns a map from Pokemon ID to Pokedex index from a particular version.
+  '''
   game_indices_by_id = {}
-  with open('%s/pokemon_game_indices.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-      if row['version_id'] == version_id:
-        game_indices_by_id[row['pokemon_id']] = row['game_index']
+  for row in read_csv('pokemon_game_indices'):
+    if row['version_id'] == version_id(version):
+      game_indices_by_id[row['pokemon_id']] = row['game_index']
+  return game_indices_by_id
 
+@memoize
+def moves():
+  '''Returns each move in the game, keyed by ID.'''
   moves_by_id = {}
-  with open('%s/moves.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-      # TODO: Class-ify?
-      moves_by_id[row['id']] = Move(
-          name=row['identifier'],
-          power=row['power'],
-          pp=row['pp'],
-          accuracy=row['accuracy'],
-          move_type='Normal', # TODO: types_by_id[row['type_id']]
-          effect=None, # TODO: effects_by_id[row['effect_id']]
-          effect_chance=row['effect_chance'])
+  for row in read_csv('moves'):
+    moves_by_id[row['id']] = Move(
+        name=row['identifier'],
+        power=row['power'],
+        pp=row['pp'],
+        accuracy=row['accuracy'],
+        move_type='Normal', # TODO: types_by_id[row['type_id']]
+        effect=None, # TODO: effects_by_id[row['effect_id']]
+        effect_chance=row['effect_chance'])
+  return moves_by_id
 
+@memoize
+def moves_per_pokemon(version):
+  '''Returns a list of each Pokemon's moves, keyed by Pokemon ID.'''
   moves_by_pokemon_id = defaultdict(list)
-  with open('%s/pokemon_moves.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-      if row['version_group_id'] == version_group_id:
-        moves_by_pokemon_id[row['pokemon_id']].append(moves_by_id[row['move_id']])
+  for row in read_csv('pokemon_moves'):
+    if row['version_group_id'] == version_group_id(version):
+      moves_by_pokemon_id[row['pokemon_id']].append(moves()[row['move_id']])
+  return moves_by_pokemon_id
 
+@memoize
+def stats():
+  '''Returns all pokemon's stats, keyed by Pokemon ID.'''
+  pokemon_stats_by_id = defaultdict(dict)
+  for row in read_csv('pokemon_stats'):
+    stat = STAT_NAMES[row['stat_id']]
+    pokemon_stats_by_id[row['pokemon_id']][stat] = int(row['base_stat'])
+  return { pokemon_id: Stats(**stats) for (pokemon_id, stats) in pokemon_stats_by_id.items() }
+
+@memoize
+def evs():
+  '''Returns the EVs obtained by fighting Pokemon, keyed by Pokemon ID.'''
+  pokemon_evs_by_id = defaultdict(dict)
+  for row in read_csv('pokemon_stats'):
+    stat = STAT_NAMES[row['stat_id']]
+    pokemon_evs_by_id[row['pokemon_id']][stat] = int(row['effort'])
+  return { pokemon_id: Stats(**stats) for (pokemon_id, stats) in pokemon_evs_by_id.items() }
+
+@memoize
+def type_names(version):
+  '''Returns type names keyed by type ID.'''
+  # TODO(arensonjr): Support 'damage class', for Gen IV and up
+  return {row['id']: row['identifier']
+          for row in read_csv('types')
+          if row['generation_id'] <= generation(version)}
+
+@memoize
+def types(version):
+  '''Returns each Pokemon's type(s) by Pokemon ID.'''
+  types = defaultdict(lambda: defaultdict(str))
+  for row in read_csv('pokemon_types'):
+    # TODO(arensonjr): Fairy didn't exist before Gen VI, but
+    # the database we're given doesn't split out Pokemon types
+    # per-version, so we have to work around it manually.
+    type_name = type_names(version).get(row['type_id'], 'normal')
+
+    types[row['pokemon_id']][row['slot']] = type_name
+
+  return types
+
+@memoize
+def list_pokemon(version='Silver'):
+  '''Lists all Pokemon from a particular game version.'''
+  # TODO(arensonjr): optionally localize, to support non-en-US versions?
   all_pokemon = []
-  with open('%s/pokemon.csv' % DATA_DIR, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-      pokemon_id = row['id']
-      # TODO: Object?
-      if pokemon_id not in game_indices_by_id:
-        # Wasn't in the requested version of the game -- skip it.
-        continue
+  for row in read_csv('pokemon'):
+    pokemon_id = row['id']
 
-      all_pokemon.append(Pokemon(
-          species=row['identifier'],
-          base_stats=pokemon_stats_by_id[pokemon_id],
-          evs=pokemon_evs_by_id[pokemon_id],
-          game_index=game_indices_by_id[pokemon_id],
-          moves=moves_by_pokemon_id[pokemon_id],
-      ))
+    # If the pokemon doesn't exist in this version of the game, don't include
+    # it in the returned list.
+    if pokemon_id not in game_indices(version):
+      continue
+
+    all_pokemon.append(Pokemon(
+        species=row['identifier'],
+        base_stats=stats()[pokemon_id],
+        evs=evs()[pokemon_id],
+        game_index=game_indices(version)[pokemon_id],
+        moves=moves_per_pokemon(version)[pokemon_id],
+        type1=types(version)[pokemon_id]['1'],
+        type2=types(version)[pokemon_id]['2']))
+
   return all_pokemon
 
 
-
-def list_pokemon_old(version='silver', num=811):
-  """TODO(arensonjr): Un-hardcode the current max number of pokemon."""
-
-  # TODO: resolve version & version-group
-
-  details_urls = [pokemon['url']
-                  for response in pokeapi_parallel_list('%s/pokemon' % BASE_URL, 50, num)
-                  for pokemon in response['results']]
-
-  responses = grequests.map(grequests.get(url) for url in details_urls)
-  failed = list(filter(lambda resp: resp.status_code != 200, responses))
-  if failed:
-    raise Exception('Some requests failed: ' + str(failed))
-
-  return [Pokemon(resp.json(), version=version) for resp in responses]
-
-
-  #return [Pokemon(p, version=version)
-  #        for response in pokeapi_parallel_list('%s/pokemon' % BASE_URL, 50, num)
-  #        for p in response['results']]
-
-
-def find(ls, f):
-  for x in ls:
-    if f(x):
-      return x
-  raise Exception('No element in ' + str(ls) + ' satisfied ' + repr(f))
-
 class Pokemon(object):
-  def __init__(self, species, game_index, base_stats, evs, moves=[]):
+  def __init__(self, species, game_index, base_stats, evs, type1, type2, moves=[]):
     self.species = species
     self.game_index = game_index
     self.base_stats = base_stats
     self.evs = evs
     self.moves = moves
-
-  # TODO(arensonjr): Pokemon's type(s)
+    self.type1 = type1
+    self.type2 = type2 or None
 
   def enum_name(self):
     # Don't forget to replace '-'s for pokemon like "Ho-oh"
@@ -195,9 +206,22 @@ class Pokemon(object):
   def move_enum_list(self):
     return ['Move.' + move.enum_name() for move in self.moves]
 
+  def type1_enum(self):
+    return 'Type.' + self.type1.upper()
+
+  def type2_enum(self):
+    return 'Type.' + self.type2.upper() if self.type2 else 'null'
+
   def __repr__(self):
-    return 'Pokemon(\n  species=%s,\n  game_index=%s,\n  base_stats=%s,\n  evs=%s,\n  moves=%s\n)' % (
-        self.species,self.game_index,self.base_stats,self.evs,pformat(self.moves, indent=4))
+    return ('Pokemon(\n  '
+            'species=%s,\n  '
+            'game_index=%s,\n  '
+            'base_stats=%s,\n  '
+            'evs=%s,\n  '
+            'type1=%s,\n  '
+            'type2=%s\n  '
+            'moves=%s\n)') % (
+        self.species, self.game_index, self.base_stats, self.evs, self.type1, self.type2, self.moves)
 
 class Move(object):
   def __init__(self, name, pp, move_type, power=None, effect=None, effect_chance=None, accuracy=None):

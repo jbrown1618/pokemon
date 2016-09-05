@@ -1,4 +1,0 @@
-# Force building and running with python3.
-#run   --force_python=py3 --host_force_python=py3
-#test  --force_python=py3 --host_force_python=py3
-#build --force_python=py3 --host_force_python=py3
