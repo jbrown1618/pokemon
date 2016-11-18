@@ -1,13 +1,11 @@
 package com.jbrown.pokemon.controllers;
 
-import com.google.gson.Gson;
 import com.jbrown.pokemon.enums.Species;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 
-public class SpeciesController {
-    private static Gson gson = new Gson();
+public class SpeciesController extends Controller {
 
-    public static String getAllSpecies() {
-        Species[] allSpecies = Species.values();
-        return gson.toJson(allSpecies);
-    }
+    public static Route getAllSpecies = (Request request, Response response) -> Species.values();
 }
