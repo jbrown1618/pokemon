@@ -21,11 +21,23 @@ public enum Species {
         this.type2 = type2;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public Type getType1() {
         return type1;
     }
 
     public Type getType2() {
         return type2;
+    }
+
+    public Stats getBaseStats() {
+        return baseStats;
     }
 }
