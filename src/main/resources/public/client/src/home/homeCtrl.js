@@ -1,7 +1,7 @@
 (function() {
-    angular.module("mainApp").controller("homeCtrl", homeCtrl);
+    'use strict';
 
-    homeCtrl.$inject = ['$scope', '$location'];
+    angular.module("mainApp").controller("homeCtrl", homeCtrl);
 
     function homeCtrl($scope, $location) {
         $scope.states = [

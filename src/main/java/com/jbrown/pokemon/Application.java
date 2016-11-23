@@ -23,6 +23,8 @@ public class Application {
             response.type("application/json");
         });
 
+        redirect.get("/", "/index.html"); // Serve up main page
+
         get("/api/species", SpeciesController.getAllSpecies, gson::toJson);
         get("/api/species/:id", SpeciesController.getSpecies, gson::toJson);
         post("/api/battle/next-state", BattleController.getNextState, gson::toJson);

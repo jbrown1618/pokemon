@@ -1,24 +1,24 @@
 (function () {
-    angular.module('mainApp', ['ngRoute']).config(config);
+    angular.module('mainApp', ['ngRoute', 'ngResource']).config(config);
 
     function config ($routeProvider) {
         $routeProvider
-            .when('/home', {
-                templateUrl: '/client/app/tpl/home.tpl.html',
+            .when('/', {
+                templateUrl: '/client/src/home/home.tpl.html',
                 controller: 'homeCtrl'
             })
             .when('/pokedex', {
-                templateUrl: '/client/app/tpl/pokedex.tpl.html',
+                templateUrl: '/client/src/pokedex/pokedex.tpl.html',
                 controller: 'pokedexCtrl'
             })
             .when('/battle', {
-                templateUrl: '/client/app/tpl/battle.tpl.html',
+                templateUrl: '/client/src/battle/battle.tpl.html',
                 controller: 'battleCtrl'
             }).when('/party', {
-                templateUrl: '/client/app/tpl/party.tpl.html',
+                templateUrl: '/client/src/party/party.tpl.html',
                 controller: 'partyCtrl'
             }).otherwise({
-                redirectTo: '/home'
+                redirectTo: '/'
             });
     }
 })();
