@@ -1,3 +1,24 @@
 <div id="pokedex" class="container">
     <h2>Pokedex</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Type 1</th>
+            <th>Type 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="species in speciesList">
+            <td>
+                <img ng-src="/images/pokemon/front/{{species.number}}.png" style="height:50px;">
+            </td>
+            <td>{{species.name}}</td>
+            <td>{{species.type1}}</td>
+            <td>{{species.type2}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
