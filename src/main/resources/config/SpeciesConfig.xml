@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SpeciesConfig xmlns="pokemon.jbrown.com"
+<SpeciesDefinitions xmlns="urn:pokemon.jbrown.com"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="pokemon.jbrown.com SpeciesConfigSchema.xsd">
+               xsi:schemaLocation="pokemon.jbrown.com schema/SpeciesConfigSchema.xsd">
     <Species>
         <Id>1</Id>
         <Name>Bulbasaur</Name>
@@ -54,5 +54,4 @@
             </EggMoves>
         </LearnSet>
     </Species>
-    <GenerationDate>2016-12-28</GenerationDate>
-</SpeciesConfig>
+</SpeciesDefinitions>
