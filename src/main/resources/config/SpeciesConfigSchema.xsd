@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="pokemon.jbrown.com"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="SpeciesConfig">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Species" type="Species" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element name="GenerationDate" type="xs:date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Species">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:int"/>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="Type1" type="xs:string"/>
+            <xs:element name="Type2" type="xs:string"/>
+            <xs:element name="PokedexEntry" type="xs:string"/>
+            <xs:element name="BaseStats" type="Stats"/>
+            <xs:element name="LearnSet" type="LearnSet"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Stats">
+        <xs:sequence>
+            <xs:element name="HP" type="xs:int"/>
+            <xs:element name="Attack" type="xs:int"/>
+            <xs:element name="Defense" type="xs:int"/>
+            <xs:element name="SpecialAttack" type="xs:int"/>
+            <xs:element name="SpecialDefense" type="xs:int"/>
+            <xs:element name="Speed" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LearnSet">
+        <xs:sequence>
+            <xs:element name="LevelUpMoves" type="MoveList"/>
+            <xs:element name="TmHmMoves" type="MoveList"/>
+            <xs:element name="EggMoves" type="MoveList"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="MoveList">
+        <xs:sequence>
+            <xs:element name="MoveName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
