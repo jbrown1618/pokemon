@@ -1,7 +1,8 @@
 package com.jbrown.pokemon.dto;
 
-import com.jbrown.pokemon.enums.Species;
+import com.jbrown.pokemon.entities.Species;
 import com.jbrown.pokemon.enums.Type;
+import org.springframework.stereotype.Component;
 
 public class SpeciesDto {
     private int number;
@@ -16,6 +17,7 @@ public class SpeciesDto {
         this.type2 = type2;
     }
 
+    @Component
     public static class Mapper implements DtoMapper<Species, SpeciesDto> {
         @Override
         public SpeciesDto toDto(Species species) {
