@@ -1,19 +1,8 @@
-package com.jbrown.pokemon.enums;
+package com.jbrown.pokemon.entities;
 
-import com.jbrown.pokemon.entities.Stats;
-import static com.jbrown.pokemon.enums.Type.*;
+import com.jbrown.pokemon.enums.Type;
 
-public enum Species {
-    BULBASAUR(1, "Bulbasaur", GRASS, null),
-    IVYSAUR(2, "Ivysaur", GRASS, POISON),
-    VENUSAUR(3, "Venusaur", GRASS, POISON),
-    CHARMANDER(4, "Charmander", FIRE, null),
-    CHARMELEON(5, "Charmeleon", FIRE, null),
-    CHARIZARD(6, "Charizard", FIRE, FLYING),
-    SQUIRTLE(7, "Squirtle", WATER, null),
-    WARTORTLE(8, "Wartortle", WATER, null),
-    BLASTOISE(9, "Blastoise", WATER, null);
-
+public class Species {
     private int number;
     private String name;
     private Type type1;

@@ -1,33 +1,23 @@
 package com.jbrown.pokemon;
 
 import com.google.gson.Gson;
+import com.jbrown.pokemon.config.RouteConfiguration;
+import com.jbrown.pokemon.config.WebContextConfiguration;
 import com.jbrown.pokemon.controllers.BattleController;
 import com.jbrown.pokemon.controllers.SpeciesController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static spark.Spark.*;
 
 public class Application {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-
     public static void main(String[] args) {
-        Gson gson = new Gson();
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(WebContextConfiguration.class);
+        ctx.refresh();
 
-        port(8080);
-
-        staticFileLocation("/public");
-
-        before("/api/*", (request, response) -> {
-            LOGGER.info(request.url());
-            response.type("application/json");
-        });
-
-        redirect.get("/", "/index.html"); // Serve up main page
-
-        get("/api/species", SpeciesController.getAllSpecies, gson::toJson);
-        get("/api/species/:id", SpeciesController.getSpecies, gson::toJson);
-        post("/api/battle/next-state", BattleController.getNextState, gson::toJson);
-
+        RouteConfiguration routeConfiguration = ctx.getBean(RouteConfiguration.class);
+        routeConfiguration.configureRoutes();
     }
 }
