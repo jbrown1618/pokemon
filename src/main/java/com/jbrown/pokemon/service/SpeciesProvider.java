@@ -2,23 +2,15 @@ package com.jbrown.pokemon.service;
 
 import com.jbrown.pokemon.entities.Species;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Set;
 
-@Component
+@Service
 public class SpeciesProvider {
 
     @Autowired
     private Set<Species> allSpecies;
-
-    @PostConstruct
-    private void init() {
-        if (allSpecies.size() == 0) {
-            throw new IllegalStateException("No species are configured");
-        }
-    }
 
     public Species getSpecies(int id) {
         return allSpecies.stream()

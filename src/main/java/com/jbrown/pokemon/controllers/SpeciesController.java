@@ -4,15 +4,15 @@ import com.jbrown.pokemon.dto.SpeciesDto;
 import com.jbrown.pokemon.service.SpeciesProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import spark.Request;
 import spark.Response;
-import spark.Route;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
-public class SpeciesController extends Controller {
+@Controller
+public class SpeciesController extends BaseController {
 
     @Autowired
     private SpeciesProvider speciesProvider;

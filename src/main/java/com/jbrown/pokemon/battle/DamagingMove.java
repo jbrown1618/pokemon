@@ -4,7 +4,7 @@ import com.jbrown.pokemon.entities.Pokemon;
 import com.jbrown.pokemon.entities.Stats;
 import com.jbrown.pokemon.enums.Type;
 
-public class DamagingMoveExecutor extends MoveExecutor {
+public class DamagingMove extends Move {
     private static double MAX_RANDOM_MULTIPLIER = 1.0;
     private static double MIN_RANDOM_MULTIPLIER = 0.85;
     private static double CRITICAL_HIT_PROBABILITY = 0.0625;
@@ -12,9 +12,8 @@ public class DamagingMoveExecutor extends MoveExecutor {
     private int basePower;
     private TypeEvaluator typeEvaluator = new TypeEvaluator();
 
-    public DamagingMoveExecutor(Type type, double accuracy, int basePower) {
-        this.type = type;
-        this.accuracy = accuracy;
+    public DamagingMove(String name, Type type, int accuracy, int basePower) {
+        super(name, accuracy, type);
         this.basePower = basePower;
     }
 
@@ -37,8 +36,8 @@ public class DamagingMoveExecutor extends MoveExecutor {
 
     private double calculateDamageModifier(Pokemon attacker, Pokemon target) {
         return calculateSameTypeAttackBonus(attacker)
-            * typeEvaluator.getMultiplier(type, target.getSpecies().getType1())
-            * typeEvaluator.getMultiplier(type, target.getSpecies().getType2())
+            * typeEvaluator.getMultiplier(getType(), target.getSpecies().getType1())
+            * typeEvaluator.getMultiplier(getType(), target.getSpecies().getType2())
             * calculateCriticalHitMultiplier()
             * calculateRandomMultiplier();
     }
@@ -56,8 +55,8 @@ public class DamagingMoveExecutor extends MoveExecutor {
     }
 
     private boolean hasSameTypeAttackBonus(Pokemon attacker) {
-        return type.equals(attacker.getSpecies().getType1()) ||
-            type.equals(attacker.getSpecies().getType2());
+        return getType().equals(attacker.getSpecies().getType1()) ||
+            getType().equals(attacker.getSpecies().getType2());
     }
 
     private double calculateCriticalHitMultiplier() {
