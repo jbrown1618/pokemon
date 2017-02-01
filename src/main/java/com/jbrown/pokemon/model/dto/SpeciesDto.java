@@ -1,7 +1,7 @@
-package com.jbrown.pokemon.dto;
+package com.jbrown.pokemon.model.dto;
 
-import com.jbrown.pokemon.entities.Species;
-import com.jbrown.pokemon.enums.Type;
+import com.jbrown.pokemon.model.Species;
+import com.jbrown.pokemon.model.enums.Type;
 import org.springframework.stereotype.Component;
 
 public class SpeciesDto {

@@ -1,4 +1,4 @@
-package com.jbrown.pokemon.entities;
+package com.jbrown.pokemon.model;
 
 
 public class Pokemon {

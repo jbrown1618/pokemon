@@ -1,6 +1,6 @@
-package com.jbrown.pokemon.entities;
+package com.jbrown.pokemon.model;
 
-import com.jbrown.pokemon.enums.Type;
+import com.jbrown.pokemon.model.enums.Type;
 
 public class Species {
     private int number;

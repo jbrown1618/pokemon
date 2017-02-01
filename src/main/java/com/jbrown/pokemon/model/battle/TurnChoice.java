@@ -1,4 +1,4 @@
-package com.jbrown.pokemon.battle;
+package com.jbrown.pokemon.model.battle;
 
 public class TurnChoice {
     String choiceType;

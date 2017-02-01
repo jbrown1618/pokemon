@@ -1,8 +1,10 @@
-package com.jbrown.pokemon.battle;
+package com.jbrown.pokemon.model.battle.move;
 
-import com.jbrown.pokemon.entities.Pokemon;
-import com.jbrown.pokemon.entities.Stats;
-import com.jbrown.pokemon.enums.Type;
+import com.jbrown.pokemon.model.Pokemon;
+import com.jbrown.pokemon.model.Stats;
+import com.jbrown.pokemon.model.battle.move.Move;
+import com.jbrown.pokemon.model.enums.Type;
+import com.jbrown.pokemon.service.battle.TypeEvaluator;
 
 public class DamagingMove extends Move {
     private static double MAX_RANDOM_MULTIPLIER = 1.0;

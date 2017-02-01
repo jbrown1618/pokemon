@@ -1,9 +1,8 @@
-package com.jbrown.pokemon.controllers;
+package com.jbrown.pokemon.controller;
 
-import com.jbrown.pokemon.dto.SpeciesDto;
+import com.jbrown.pokemon.model.dto.SpeciesDto;
 import com.jbrown.pokemon.service.SpeciesProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import spark.Request;
 import spark.Response;

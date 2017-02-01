@@ -1,6 +1,6 @@
 package com.jbrown.pokemon.service;
 
-import com.jbrown.pokemon.battle.Move;
+import com.jbrown.pokemon.model.battle.move.Move;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

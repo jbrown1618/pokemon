@@ -1,4 +1,4 @@
-package com.jbrown.pokemon.enums;
+package com.jbrown.pokemon.model.enums;
 
 public enum Type {
     NORMAL,

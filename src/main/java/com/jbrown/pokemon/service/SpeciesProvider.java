@@ -1,6 +1,6 @@
 package com.jbrown.pokemon.service;
 
-import com.jbrown.pokemon.entities.Species;
+import com.jbrown.pokemon.model.Species;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

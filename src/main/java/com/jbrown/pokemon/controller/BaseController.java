@@ -1,4 +1,4 @@
-package com.jbrown.pokemon.controllers;
+package com.jbrown.pokemon.controller;
 
 public abstract class BaseController {
 }

@@ -1,7 +1,7 @@
-package com.jbrown.pokemon.battle;
+package com.jbrown.pokemon.model.battle.move;
 
-import com.jbrown.pokemon.entities.Pokemon;
-import com.jbrown.pokemon.enums.Type;
+import com.jbrown.pokemon.model.Pokemon;
+import com.jbrown.pokemon.model.enums.Type;
 
 public abstract class Move {
     private String name;

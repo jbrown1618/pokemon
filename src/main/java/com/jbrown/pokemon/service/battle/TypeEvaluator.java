@@ -1,13 +1,13 @@
-package com.jbrown.pokemon.battle;
+package com.jbrown.pokemon.service.battle;
 
-import com.jbrown.pokemon.enums.Type;
+import com.jbrown.pokemon.model.enums.Type;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static com.jbrown.pokemon.enums.Type.*;
+import static com.jbrown.pokemon.model.enums.Type.*;
 
 public class TypeEvaluator {
     private static final double INEFFECTIVE = 0.0;
