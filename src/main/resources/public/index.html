@@ -1,27 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="mainApp">
+<html lang="en" ng-app="pokemon">
 <head>
     <meta charset="UTF-8">
     <title>Pokemon</title>
+
+    <!--TODO: Configure Grunt to build this file and avoid all of this script inclusion-->
+    <link rel="stylesheet" type="text/css" href="client/bower_components/bootstrap/dist/css/bootstrap.css">
+
     <script src="client/bower_components/jquery/dist/jquery.js"></script>
     <script src="client/bower_components/angular/angular.js"></script>
     <script src="client/bower_components/angular-resource/angular-resource.js"></script>
-    <script src="client/bower_components/angular-route/angular-route.js"></script>
+    <script src="client/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="client/src/mainApp.js"></script>
+    <script src="client/src/battle/pokemon.battle.js"></script>
     <script src="client/src/battle/battleCtrl.js"></script>
+    <script src="client/src/common/pokemon.common.js"></script>
+    <script src="client/src/common/directives/pkNavBar.js"></script>
     <script src="client/src/common/directives/pkPokemonPanel.js"></script>
     <script src="client/src/common/services/speciesService.js"></script>
+    <script src="client/src/home/pokemon.home.js"></script>
     <script src="client/src/home/homeCtrl.js"></script>
+    <script src="client/src/party/pokemon.party.js"></script>
     <script src="client/src/party/partyCtrl.js"></script>
+    <script src="client/src/pokedex/pokemon.pokedex.js"></script>
     <script src="client/src/pokedex/pokedexCtrl.js"></script>
 </head>
 <body>
 
-<div>
-    <h1>Pokemon</h1>
-</div>
+<pk-nav-bar></pk-nav-bar>
 
-<div ng-view=""></div>
+<ui-view></ui-view>
 
 </body>
 </html>

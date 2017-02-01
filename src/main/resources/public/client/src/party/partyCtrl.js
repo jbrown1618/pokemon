@@ -1,7 +1,7 @@
 (function() {
-    angular.module("mainApp").controller("partyCtrl", partyCtrl);
+    'use strict';
 
-    partyCtrl.$inject = ['$scope','partySvc'];
+    angular.module('pokemon.party').controller('partyCtrl', partyCtrl);
 
     function partyCtrl($scope, partySvc) {
         console.log("partyCtrl");

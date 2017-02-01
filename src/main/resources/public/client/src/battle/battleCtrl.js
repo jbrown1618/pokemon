@@ -1,7 +1,7 @@
 (function() {
-    angular.module("mainApp").controller("battleCtrl", battleCtrl);
+    'use strict';
 
-    battleCtrl.$inject = ['$scope'];
+    angular.module('pokemon.battle').controller('battleCtrl', battleCtrl);
 
     function battleCtrl($scope) {
         console.log("battleCtrl");

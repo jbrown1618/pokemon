@@ -1,10 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('mainApp').factory('speciesService', speciesService);
+    angular.module('pokemon.common').factory('speciesService', speciesService);
 
     function speciesService ($resource) {
-
         var speciesResource = $resource('/api/species', {}, {
             getSpecies: {
                 method: 'GET',

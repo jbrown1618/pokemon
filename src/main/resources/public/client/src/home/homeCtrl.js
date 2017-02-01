@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module("mainApp").controller("homeCtrl", homeCtrl);
+    angular.module('pokemon.home').controller('homeCtrl', homeCtrl);
 
     function homeCtrl($scope, $location) {
         $scope.states = [
