@@ -75,5 +75,5 @@ buildNumber.properties
 .mvn/timing.properties
 
 ### NPM and Bower
-*/bower_components
-*/node_modules
+bower_components
+node_modules

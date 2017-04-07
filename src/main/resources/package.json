@@ -1,0 +1,24 @@
+{
+  "name": "pokemon",
+  "author": "jbrown1618",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jbrown1618/pokemon#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbrown1618/pokemon.git"
+  },
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-clean": "latest"
+  }
+}
