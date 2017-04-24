@@ -8,13 +8,16 @@ import {PokedexComponent} from './pokedex/pokedex.component';
 import {PartyComponent} from './party/party.component';
 import {BattleComponent} from './battle/battle.component';
 import {routing} from './app.routing';
+import { NavbarComponent } from './navbar/navbar.component';
+import {SpeciesService} from "./common/services/species.service";
 
 @NgModule({
     declarations: [
         AppComponent,
         PokedexComponent,
         PartyComponent,
-        BattleComponent
+        BattleComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,
@@ -22,7 +25,9 @@ import {routing} from './app.routing';
         HttpModule,
         routing
     ],
-    providers: [],
+    providers: [
+        SpeciesService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
