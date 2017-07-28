@@ -22,10 +22,11 @@
         </plugins>
     </build>
     <modules>
-        <module>pokemon-domain</module>
+        <module>pokemon-core</module>
         <module>pokemon-service</module>
         <module>pokemon-web</module>
         <module>pokemon-client</module>
+        <module>pokemon-battle</module>
     </modules>
 
     <dependencies>

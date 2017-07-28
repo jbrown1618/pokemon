@@ -1,6 +1,6 @@
 package com.jbrown.pokemon.service;
 
-import com.jbrown.pokemon.domain.Species;
+import com.jbrown.pokemon.core.domain.Species;
 
 import java.util.Set;
 

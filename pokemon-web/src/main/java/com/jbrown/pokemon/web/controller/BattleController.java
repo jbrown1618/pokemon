@@ -1,6 +1,6 @@
-package com.jbrown.pokemon.controller;
+package com.jbrown.pokemon.web.controller;
 
-import com.jbrown.pokemon.domain.battle.ReturnBattleState;
+import com.jbrown.pokemon.core.domain.ReturnBattleState;
 import org.springframework.stereotype.Controller;
 import spark.Request;
 import spark.Response;

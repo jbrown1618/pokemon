@@ -1,7 +1,7 @@
-package com.jbrown.pokemon;
+package com.jbrown.pokemon.web;
 
-import com.jbrown.pokemon.config.ApplicationConfiguration;
-import com.jbrown.pokemon.config.WebContextConfiguration;
+import com.jbrown.pokemon.web.config.ApplicationConfiguration;
+import com.jbrown.pokemon.web.config.WebContextConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Application {

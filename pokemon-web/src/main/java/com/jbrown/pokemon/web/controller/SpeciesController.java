@@ -1,7 +1,7 @@
-package com.jbrown.pokemon.controller;
+package com.jbrown.pokemon.web.controller;
 
-import com.jbrown.pokemon.domain.dto.SpeciesDto;
 import com.jbrown.pokemon.service.SpeciesProvider;
+import com.jbrown.pokemon.web.dto.SpeciesDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import spark.Request;
@@ -17,16 +17,16 @@ public class SpeciesController extends BaseController {
     private SpeciesProvider speciesProvider;
 
     @Autowired
-    private SpeciesDto.Mapper mapper;
+    private SpeciesDto.Mapper speciesDtoMapper;
 
     public Set<SpeciesDto> getAllSpecies(Request request, Response response) {
         return speciesProvider.getAllSpecies().stream()
-            .map(mapper::toDto)
+            .map(speciesDtoMapper::toDto)
             .collect(Collectors.toSet());
     }
 
     public SpeciesDto getSpecies(Request request, Response response) {
         int id = Integer.valueOf(request.params(":id"));
-        return mapper.toDto(speciesProvider.getSpecies(id));
+        return speciesDtoMapper.toDto(speciesProvider.getSpecies(id));
     }
 }

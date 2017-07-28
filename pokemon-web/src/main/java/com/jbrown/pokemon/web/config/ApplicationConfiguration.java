@@ -1,4 +1,4 @@
-package com.jbrown.pokemon.config;
+package com.jbrown.pokemon.web.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
-package com.jbrown.pokemon.config;
+package com.jbrown.pokemon.web.config;
 
-import com.jbrown.pokemon.controller.BattleController;
-import com.jbrown.pokemon.controller.SpeciesController;
-import com.jbrown.pokemon.controller.transformer.JsonResponseTransformer;
+import com.jbrown.pokemon.web.controller.BattleController;
+import com.jbrown.pokemon.web.controller.SpeciesController;
+import com.jbrown.pokemon.web.transformer.JsonResponseTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -17,6 +17,11 @@
             <artifactId>pokemon-battle</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.jbrown.pokemon</groupId>
+            <artifactId>pokemon-service</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>com.sparkjava</groupId>

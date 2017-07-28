@@ -9,13 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pokemon-service</artifactId>
+    <artifactId>pokemon-core</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.jbrown.pokemon</groupId>
-            <artifactId>pokemon-core</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
 </project>
